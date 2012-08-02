@@ -444,7 +444,7 @@ u_int16_t JuniperInputParser::parsePortByName(const char* str)
 /**
  * Method parses port range, or one port and sets start and end port of the range.
  *
- * @param str pointer to string containing port range, por one port, given as a number or by string name.
+ * @param str pointer to string containing port range, or one port, given as a number or by string name.
  * @param rangeStart reference to variable, where the start port will be stored.
  * @param rangeStop reference to variable, where the end port will be stored.
  */
@@ -647,7 +647,7 @@ std::auto_ptr< boost::ptr_vector< AccessControlList > > JuniperInputParser::pars
     inputStream.seekg (0, ios_base::end);
     inputFileLength = inputStream.tellg();      /* get the position of the offset in stream (the size of the stream) */
     inputStream.seekg (0, ios_base::beg);
-    inputFileLength++;                          /* append "/0" */
+    inputFileLength++;                          /* for appending "/0" */
 
     #ifdef DEBUG
     cerr << endl << "DEBUG: Input length= " << inputFileLength << endl;
@@ -657,7 +657,7 @@ std::auto_ptr< boost::ptr_vector< AccessControlList > > JuniperInputParser::pars
     if ( inputFileLength < 1 )
         throw Exception("Cannot parse input file! File is empty!");
 
-    /**********************************************************************/
+    /*************************************************/
     /* allocation of the buffer for reading the file */
     char* tmp = NULL;
     if ( (tmp = new char[inputFileLength]) == NULL )
@@ -678,7 +678,7 @@ std::auto_ptr< boost::ptr_vector< AccessControlList > > JuniperInputParser::pars
     xml_document< > xmlParsedDoc;
     xml_node< >* tmp_accessListNode = NULL;
 
-    /****************************************/
+    /**************************************/
     /* parsing the buffer to DOM XML tree */
     try {
         xmlParsedDoc.parse<0>(tmp);
@@ -699,7 +699,7 @@ std::auto_ptr< boost::ptr_vector< AccessControlList > > JuniperInputParser::pars
         throw Exception("Parsing of input file failed!");
     }
 
-    /***********************************************************************/
+    /*****************************************/
     /* parsing all existing ACLs in XML file */
     /* RPC-REPLY */
     if ( (tmp_accessListNode = xmlParsedDoc.first_node("rpc-reply")) == NULL )
