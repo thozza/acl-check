@@ -16,11 +16,11 @@
 #
 # Makefile for building ACL check tool
 
-CC= g++
-ARGS= -Wall -pedantic -ansi -O1
-DARGS= -ggdb3 -Wall -pedantic -ansi
-OUT= -o aclCheck
-OUT1= -o aclCheckNaive
+CC=g++
+ARGS=-Wall -pedantic -ansi -O1 -fpermissive
+DARGS=-ggdb3 -Wall -pedantic -ansi -fpermissive
+OUT=-o aclCheck
+OUT1=-o aclCheckNaive
 
 all: tool naive
 

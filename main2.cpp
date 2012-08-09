@@ -60,7 +60,7 @@ static void usage(char* prog)
     cout << prog << "  Copyright (C) 2012  Tomas Hozza" << endl;
     cout << "This program comes with ABSOLUTELY NO WARRANTY." << endl;
     cout << "This is free software, and you are welcome to redistribute it" << endl;
-    cout << "under certain conditions." << endl;
+    cout << "under conditions of the GNU/GPLv3 license." << endl;
     cout << "---------------------------------------------------------------------------------" << endl;
     cout << "PROGRAM USAGE:" << endl;
     cout << " -i <input_file>\tSet input file with device/acl configuration." << endl;
