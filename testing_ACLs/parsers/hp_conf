@@ -1,0 +1,71 @@
+; J8697A Configuration Editor; Created on release #K.14.65
+;
+hostname "hp"
+module 1 type J8706A
+interface A1
+ name "hp-a1"
+ exit
+interface A2
+ speed-duplex 100-full
+ exit
+ip routing
+vlan 1
+ name "Default"
+ untagged A2
+ no untagged A1
+ no ip address
+ exit
+vlan 100
+ name "mgmt-vlan"
+ untagged A2
+ ip address 172.16.11.251 255.255.255.0
+ exit
+router ospf
+ area 0.0.0.2
+ redistribute connected
+ redistribute static
+ restrict 10.0.0.0 255.0.0.0
+ restrict 172.16.0.0 255.240.0.0
+ exit
+access-list 20 remark poznamka
+access-list 20 permit any
+access-list 20 permit host 192.168.1.1
+access-list 20 permit 192.168.1.0 0.0.0.255
+access-list 20 permit 192.168.1.0/25
+access-list 120 remark poznamka
+access-list 120 deny 6 192.168.1.0 0.0.0.255 eq 8080 any
+access-list 120 deny tcp 192.168.1.0/24 gt 8080 any
+access-list 120 deny tcp 192.168.1.0 0.0.0.255 lt 8080 any
+access-list 120 deny tcp 192.168.1.0 0.0.0.255 neq 8080 any
+access-list 120 deny tcp 192.168.1.0 0.0.0.255 range www 8080 any
+access-list 120 deny tcp any host 199.168.1.1
+access-list 120 deny udp host 192.168.1.1 199.168.1.0 0.0.0.127 range tftp snmp
+access-list 120 permit udp any any
+access-list 120 permit tcp any any
+access-list 120 deny icmp 199.168.0.0 0.0.255.255 any
+access-list 120 permit icmp any any
+access-list 120 deny ip any any
+ip access-list standard named_std_20
+ 10 remark poznamka
+ 10 permit any
+ 20 permit host 192.168.1.1
+ 30 permit 192.168.1.0 0.0.0.255
+ 40 permit 192.168.1.0/25
+ 50 permit 192.168.1.1/32
+ exit
+ip access-list extended named_ext_120
+ 10 remark poznamka
+ 10 deny tcp 192.168.1.0 0.0.0.255 eq 8080 any
+ 20 deny tcp 192.168.1.0/24 gt 8080 any
+ 30 deny 6 192.168.1.0 0.0.0.255 lt 8080 any
+ 40 deny tcp 192.168.1.0 0.0.0.255 neq 8080 any
+ 50 deny tcp 192.168.1.0 0.0.0.255 range www 8080 any
+ 60 deny tcp any host 199.168.1.1
+ 70 deny udp host 192.168.1.1 199.168.1.0 0.0.0.127 range tftp snmp
+ 80 permit udp any any
+ 90 permit tcp any any
+ 100 deny icmp 199.168.0.0 0.0.255.255 any
+ 110 permit icmp any any
+ 120 deny ip any any
+ exit
+; End of configuration file for hp
