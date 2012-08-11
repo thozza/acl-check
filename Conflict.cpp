@@ -677,7 +677,7 @@ string Conflict::conflictTypeToString(int type)
             return "no_conflict";
 
         case CONFLICT_CORELATION:
-            return "corelation";
+            return "correlation";
 
         case CONFLICT_GENERALIZATION:
             return "generalization";
